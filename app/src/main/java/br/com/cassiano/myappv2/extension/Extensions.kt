@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import br.com.cassiano.myappv2.R
+import br.com.cassiano.myappv2.feature.recipeslist.view.BaseViewModel
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, expression: (T?) -> Unit) {
     liveData.observe(this, Observer(expression))
@@ -44,4 +45,12 @@ fun defaultNavOptionsBuilder() = NavOptions.Builder()
 
 inline fun <reified VM : ViewModel> Fragment.activityViewModel(): Lazy<VM> = lazy {
     ViewModelProvider(requireActivity()).get(VM::class.java)
+}
+
+inline fun BaseViewModel.safeRun(onSuccess: () -> Unit) {
+    try {
+        onSuccess()
+    } catch (ex: Exception) {
+        this.genericError.postValue(ex)
+    }
 }

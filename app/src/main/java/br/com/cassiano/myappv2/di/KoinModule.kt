@@ -1,31 +1,33 @@
 package br.com.cassiano.myappv2.di
 
+import br.com.cassiano.myappv2.domain.repository.RecipesRepositoryImpl
 import br.com.cassiano.myappv2.feature.recipeslist.view.details.DetailsViewModel
 import br.com.cassiano.myappv2.feature.recipeslist.view.flow.MainViewModel
 import br.com.cassiano.myappv2.feature.recipeslist.view.recipes.RecipesViewModel
+import br.com.cassiano.myappv2.network.RetrofitClient
+import br.com.cassiano.myappv2.usecase.RecipesUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
 private val serviceModule = module {
-    //single { RetrofitClient.getApiService() }
+    single { RetrofitClient.getApiService() }
 }
 
 private val repositoryModule = module {
-    //single { DataRepository(service = get()) }
+    single { RecipesRepositoryImpl(api = get()) }
 }
 
-private val resourceManager = module {
-    //single { ResourceManager(context = get()) }
+private val useCases = module {
+    single { RecipesUseCase(repository = get()) }
 }
 
 private val viewModelModule = module {
-    viewModel { MainViewModel(/*repository = get()*/) }
-    viewModel { RecipesViewModel(/*repository = get()*/) }
-    viewModel { DetailsViewModel(/*repository = get()*/) }
-    //viewModel { RecipeDetailViewModel(resourceManager = get()) }
+    viewModel { MainViewModel() }
+    viewModel { RecipesViewModel(recipeUseCase = get()) }
+    viewModel { DetailsViewModel() }
 }
 
 fun loadKoinModules() {
-    loadKoinModules(listOf(/*serviceModule, repositoryModule, resourceManager, */viewModelModule))
+    loadKoinModules(listOf(serviceModule, repositoryModule, useCases, viewModelModule))
 }

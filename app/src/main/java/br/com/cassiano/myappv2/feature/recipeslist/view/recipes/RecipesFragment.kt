@@ -22,9 +22,8 @@ class RecipesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipes, container, false)
-        /*setupViewModel()
-        setupListener()*/
         setupBinding()
+        viewModel.getdata()
         return binding.root
     }
 
