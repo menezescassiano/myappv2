@@ -12,8 +12,10 @@ import br.com.cassiano.myappv2.R
 import br.com.cassiano.myappv2.databinding.FragmentRecipesBinding
 import br.com.cassiano.myappv2.domain.model.Recipe
 import br.com.cassiano.myappv2.extension.activityViewModel
+import br.com.cassiano.myappv2.extension.observe
 import br.com.cassiano.myappv2.feature.recipeslist.view.adapter.RecipesAdapter
 import br.com.cassiano.myappv2.feature.recipeslist.view.flow.MainViewModel
+import br.com.cassiano.myappv2.feature.recipeslist.view.flow.MainViewModel.Navigation.Details
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RecipesFragment : Fragment() {
@@ -23,24 +25,29 @@ class RecipesFragment : Fragment() {
     private val viewModel: RecipesViewModel by viewModel()
     private val flowViewModel: MainViewModel by activityViewModel()
 
+    private var dataFetched = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipes, container, false)
-        setupBinding()
-        setupObservables()
-        viewModel.getData()
-        return binding.root
-    }
 
-    private fun setupBinding() {
-        binding.apply {
-            //todo: is it necessary?
-        }
+        setupObservables()
+
+        if (dataFetched.not()) { viewModel.getData() }
+
+        return binding.root
     }
 
     private fun setupObservables() {
         viewModel.apply {
-            onDataResult.observe(viewLifecycleOwner, { setRecyclerView(it) })
-            progressBarVisibility.observe(viewLifecycleOwner, { binding.pbProgress.isVisible = it })
+            observe(onDataResult) {
+                it?.let {
+                    setRecyclerView(it)
+                    dataFetched = true
+                }
+            }
+            observe(progressBarVisibility) {
+                it?.let { binding.pbProgress.isVisible = it }
+            }
         }
 
     }
@@ -52,10 +59,12 @@ class RecipesFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             listAdapter.apply {
                 selectedRecipe.observe(viewLifecycleOwner, {
-                    flowViewModel.selectedRecipe = it
+                    flowViewModel.run {
+                        selectedRecipe = it
+                        navigate(Details)
+                    }
                 })
             }
         }
     }
-
 }

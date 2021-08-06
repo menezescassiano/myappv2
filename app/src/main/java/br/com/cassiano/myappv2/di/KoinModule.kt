@@ -1,7 +1,6 @@
 package br.com.cassiano.myappv2.di
 
 import br.com.cassiano.myappv2.domain.repository.RecipesRepositoryImpl
-import br.com.cassiano.myappv2.feature.recipeslist.view.details.DetailsViewModel
 import br.com.cassiano.myappv2.feature.recipeslist.view.flow.MainViewModel
 import br.com.cassiano.myappv2.feature.recipeslist.view.recipes.RecipesViewModel
 import br.com.cassiano.myappv2.network.RetrofitClient
@@ -25,7 +24,6 @@ private val useCases = module {
 private val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { RecipesViewModel(recipeUseCase = get()) }
-    viewModel { DetailsViewModel() }
 }
 
 fun loadKoinModules() {
