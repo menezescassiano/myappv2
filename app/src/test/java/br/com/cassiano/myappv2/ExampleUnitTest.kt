@@ -1,8 +1,8 @@
-package br.com.agibank.myappv2
+package br.com.cassiano.myappv2
 
 import org.junit.Test
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 
 /**
  * Example local unit test, which will execute on the development machine (host).

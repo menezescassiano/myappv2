@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.agibank.myappv2">
+    package="br.com.cassiano.myappv2">
 
     <application
-        android:allowBackup="true"
+        android:name=".BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Myappv2">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="br.com.cassiano.myappv2.feature.restaurants.view.flow.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
