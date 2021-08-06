@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_movies"
+    app:startDestination="@id/frag_recipes">
+
+    <fragment
+        android:id="@+id/frag_recipes"
+        android:name="br.com.cassiano.myappv2.feature.recipeslist.view.recipes.RecipesFragment"
+        android:label="RecipesFragment"
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_frag_recipes_to_frag_details"
+            app:destination="@id/frag_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_details"
+        android:name="br.com.cassiano.myappv2.feature.recipeslist.view.details.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details" />
+
+</navigation>

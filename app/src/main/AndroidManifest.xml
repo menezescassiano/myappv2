@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="br.com.cassiano.myappv2.feature.restaurants.view.flow.MainActivity"
+            android:name="br.com.cassiano.myappv2.feature.recipeslist.view.flow.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
