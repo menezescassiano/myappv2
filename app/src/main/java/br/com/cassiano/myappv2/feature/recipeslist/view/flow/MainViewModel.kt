@@ -2,11 +2,12 @@ package br.com.cassiano.myappv2.feature.recipeslist.view.flow
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.cassiano.myappv2.domain.model.Recipe
 
 class MainViewModel : ViewModel() {
 
     val navigationEvent = MutableLiveData<Navigation>()
-    lateinit var selectedRecipe: String
+    var selectedRecipe: Recipe? = null
 
     fun navigate(navigation: Navigation) {
         navigationEvent.postValue(navigation)
