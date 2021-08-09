@@ -32,10 +32,22 @@ class RecipesFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipes, container, false)
 
         setupObservables()
+        setupBinding()
 
-        if (dataFetched.not()) { viewModel.getData() }
+        if (dataFetched.not()) {
+            viewModel.getData()
+        }
 
         return binding.root
+    }
+
+    private fun setupBinding() {
+        binding.run {
+            tvErrorMessage.setOnClickListener {
+                showErrorMessage(false)
+                viewModel.getData()
+            }
+        }
     }
 
     private fun setupObservables() {
@@ -50,9 +62,8 @@ class RecipesFragment : Fragment() {
                 it?.let { binding.pbProgress.isVisible = it }
             }
             observe(onDataError) {
-                //todo: bring it to the user properly
                 it?.let {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    showErrorMessage(it)
                 }
             }
         }
@@ -73,5 +84,9 @@ class RecipesFragment : Fragment() {
                 })
             }
         }
+    }
+
+    private fun showErrorMessage(show: Boolean) {
+        binding.tvErrorMessage.isVisible = show
     }
 }

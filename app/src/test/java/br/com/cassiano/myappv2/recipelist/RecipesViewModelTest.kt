@@ -25,7 +25,7 @@ class RecipesViewModelTest {
 
     private val progressBarVisibilityMock: Observer<Boolean> = mockk(relaxed = true)
     private val onDataResultMock: Observer<List<Recipe>> = mockk(relaxed = true)
-    private val onDataErrorMock: Observer<Unit> = mockk(relaxed = true)
+    private val onDataErrorMock: Observer<Boolean> = mockk(relaxed = true)
     private val recipesUseCaseMock : RecipesUseCase = mockk(relaxed = true)
     private lateinit var viewModel: RecipesViewModel
 
@@ -51,9 +51,9 @@ class RecipesViewModelTest {
 
         coVerifyOrder {
             progressBarVisibilityMock.onChanged(true)
+            onDataErrorMock.onChanged(false)
             onDataResultMock.onChanged(listOf(Recipe.mock()))
             progressBarVisibilityMock.onChanged(false)
-            onDataErrorMock wasNot called
         }
     }
 
@@ -66,7 +66,7 @@ class RecipesViewModelTest {
         coVerifyOrder {
             progressBarVisibilityMock.onChanged(true)
             onDataResultMock wasNot called
-            onDataErrorMock.onChanged(Unit)
+            onDataErrorMock.onChanged(true)
             progressBarVisibilityMock.onChanged(false)
         }
     }

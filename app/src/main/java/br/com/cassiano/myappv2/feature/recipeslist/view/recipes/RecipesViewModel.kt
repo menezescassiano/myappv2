@@ -12,10 +12,11 @@ class RecipesViewModel(private val recipeUseCase: RecipesUseCase) : ViewModel() 
 
     val onDataResult = MutableLiveData<List<Recipe>>()
     val progressBarVisibility = MutableLiveData<Boolean>()
-    val onDataError = MutableLiveData<Unit>()
+    val onDataError = MutableLiveData<Boolean>()
 
     fun getData() {
         progressBarVisibility.value = true
+        onDataError.value = false
         viewModelScope.launch {
             safeRun(
                 onSuccess = {
@@ -24,7 +25,7 @@ class RecipesViewModel(private val recipeUseCase: RecipesUseCase) : ViewModel() 
                     }
                 },
             onError = {
-                onDataError.value = Unit
+                onDataError.value = true
             })
             progressBarVisibility.value = false
         }
