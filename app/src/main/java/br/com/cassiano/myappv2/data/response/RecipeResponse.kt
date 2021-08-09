@@ -15,4 +15,21 @@ data class RecipeResponse(
     @SerializedName("proteins") val proteins: String,
     @SerializedName("thumb") val thumb: String,
     @SerializedName("time") val time: String
-)
+) {
+    companion object {
+        fun mock() = RecipeResponse(
+            calories = "calories",
+            carbos = "carbos",
+            description = "description",
+            difficulty = 1,
+            fats = "fats",
+            headline = "headline",
+            id = "id",
+            image = "image",
+            name = "name",
+            proteins = "proteins",
+            thumb = "thumb",
+            time = "time"
+        )
+    }
+}

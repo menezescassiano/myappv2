@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -47,6 +48,12 @@ class RecipesFragment : Fragment() {
             }
             observe(progressBarVisibility) {
                 it?.let { binding.pbProgress.isVisible = it }
+            }
+            observe(onDataError) {
+                //todo: bring it to the user properly
+                it?.let {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

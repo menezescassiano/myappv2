@@ -89,8 +89,9 @@ dependencies {
 
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines_android"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.courotinesAdapter"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
 
     //room
     implementation "androidx.room:room-runtime:$versions.room"
